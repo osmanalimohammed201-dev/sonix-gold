@@ -300,20 +300,34 @@ const css = `
   height: 100%;
   object-fit: cover;
   border-radius: 14px;
-  filter: brightness(1.25) contrast(1.15) saturate(1.08);
-  transition: opacity .8s ease, transform 1.2s ease;
+  transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 1.2s ease;
 }
-.jg-hero-video-a { opacity: 1; }
-.jg-hero-video-b { opacity: 0; transform: scale(1.04); }
-.jg-hero:hover .jg-hero-video-a { transform: scale(1.02); }
-.jg-hero-vignette {
+.jg-hero-video-a {
+  opacity: 1;
+  filter: brightness(0.95) contrast(1);
+}
+.jg-hero-video-b {
+  opacity: 0;
+  filter: brightness(1.45) contrast(1.25) saturate(0.65);
+}
+.jg-hero:hover .jg-hero-video-a { opacity: 0; }
+.jg-hero:hover .jg-hero-video-b { opacity: 1; }
+
+.jg-hero-media::before {
+  content: '';
   position: absolute;
   inset: 0;
   border-radius: 14px;
-  background: radial-gradient(ellipse at center, rgba(10,10,10,0) 0%, rgba(10,10,10,0) 55%, rgba(10,10,10,0.2) 100%),
-              linear-gradient(to bottom, rgba(10,10,10,0.15) 0%, rgba(10,10,10,0) 25%, rgba(10,10,10,0) 75%, rgba(10,10,10,0.15) 100%);
+  opacity: 0;
+  transition: opacity 1s ease;
   pointer-events: none;
+  z-index: 2;
+  background-image:
+    linear-gradient(rgba(223,185,45,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(223,185,45,0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
 }
+.jg-hero:hover .jg-hero-media::before { opacity: 1; }
 
 .jg-hero-bottom {
   position: relative;
