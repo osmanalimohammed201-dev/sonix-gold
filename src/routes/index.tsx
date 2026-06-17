@@ -147,11 +147,7 @@ function Landing() {
         </div>
       </div>
 
-      {/* FEATURES */}
-      <section id="architecture" className="jg-section">
-        {/* GALLERY */}
-      </section>
-
+      {/* GALLERY */}
       <section className="jg-section jg-gallery-section">
         <div className="jg-eyebrow">Gallery</div>
         <h2 className="jg-h2">Crafted to be seen.</h2>
@@ -196,7 +192,8 @@ function Landing() {
         </div>
       </section>
 
-      <section className="jg-section">
+      {/* FEATURES */}
+      <section id="architecture" className="jg-section">
         <div className="jg-eyebrow">Architecture</div>
         <h2 className="jg-h2">Three pillars. One obsession.</h2>
         <div className="jg-grid">
