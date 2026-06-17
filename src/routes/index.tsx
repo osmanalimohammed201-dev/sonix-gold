@@ -77,8 +77,6 @@ function Landing() {
       {/* HERO */}
       <section
         className="jg-hero"
-        onMouseEnter={onHeroEnter}
-        onMouseLeave={onHeroLeave}
       >
         <div className="jg-hero-top">
           <h1 className="jg-headline">
