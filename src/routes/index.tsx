@@ -112,6 +112,7 @@ function Landing() {
           <video
             ref={heroB}
             src={VIDEO_B}
+            autoPlay
             muted
             loop
             playsInline
