@@ -447,6 +447,56 @@ const css = `
 }
 
 /* FEATURE CARDS */
+.jg-gallery-section { padding-top: 120px; padding-bottom: 40px; }
+.jg-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.jg-gcard {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #111;
+  border: 1px solid rgba(244,241,234,0.06);
+  transition: transform .5s cubic-bezier(.2,.7,.2,1), border-color .5s ease, box-shadow .5s ease;
+}
+.jg-gcard:hover {
+  transform: translateY(-6px);
+  border-color: rgba(223,185,45,0.35);
+  box-shadow: 0 30px 80px -30px rgba(0,0,0,0.8);
+}
+.jg-gcard-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+.jg-gcard-media::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(10,10,10,0) 55%, rgba(10,10,10,0.85) 100%);
+  pointer-events: none;
+}
+.jg-gcard-media img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 1.2s cubic-bezier(.2,.7,.2,1);
+  filter: brightness(0.95) contrast(1.05);
+}
+.jg-gcard:hover .jg-gcard-media img { transform: scale(1.06); }
+.jg-gcard-body { padding: 28px 32px 32px; }
+.jg-gcard-tag {
+  display: inline-block;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: #DFB92D; margin-bottom: 14px;
+}
+.jg-gcard h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 26px; font-weight: 500; margin: 0 0 10px; letter-spacing: -0.01em;
+}
+.jg-gcard p { color: rgba(244,241,234,0.65); font-size: 14px; line-height: 1.65; margin: 0; }
+
 .jg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .jg-card {
   border: 1px solid rgba(244,241,234,0.08);
@@ -516,6 +566,7 @@ const css = `
   .jg-hud { min-width: 0; }
   .jg-section { padding: 80px 22px; }
   .jg-grid { grid-template-columns: 1fr; }
+  .jg-gallery-grid { grid-template-columns: 1fr; }
   .jg-specs { grid-template-columns: 1fr; gap: 50px; }
   .jg-spec-row { grid-template-columns: 120px 1fr; }
   .jg-footer { padding: 24px 22px; flex-direction: column; gap: 14px; }
