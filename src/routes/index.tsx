@@ -278,28 +278,81 @@ const css = `
 .jg-nav-cta { color: #DFB92D !important; opacity: 1 !important; }
 
 /* HERO */
-.jg-hero { position: relative; height: 100vh; min-height: 720px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-.jg-hero-media { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 64px 48px; }
-.jg-hero-video { position: relative; width: 100%; max-width: 880px; aspect-ratio: 16/9; height: auto; object-fit: cover; border-radius: 12px; transition: opacity .8s ease, transform 1.2s ease; box-shadow: 0 0 60px rgba(223,185,45,0.12); }
+.jg-hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 100px 48px 40px;
+}
+.jg-hero-top {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.jg-hero-media {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  aspect-ratio: 16/9;
+  margin: 32px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.jg-hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+  filter: brightness(1.25) contrast(1.15) saturate(1.08);
+  transition: opacity .8s ease, transform 1.2s ease;
+}
 .jg-hero-video-a { opacity: 1; }
 .jg-hero-video-b { opacity: 0; transform: scale(1.04); }
 .jg-hero:hover .jg-hero-video-a { transform: scale(1.02); }
-.jg-hero-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(10,10,10,0) 0%, rgba(10,10,10,0) 50%, rgba(10,10,10,0.75) 100%), linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0) 30%, rgba(10,10,10,0.7) 100%); pointer-events: none; }
-
-.jg-hero-content {
-  position: relative; z-index: 2;
-  width: 100%;
-  display: grid; grid-template-columns: 1fr auto;
-  align-items: end; gap: 32px;
-  padding: 0 48px 80px;
-  max-width: 1500px; margin: 0 auto;
+.jg-hero-vignette {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: radial-gradient(ellipse at center, rgba(10,10,10,0) 0%, rgba(10,10,10,0) 55%, rgba(10,10,10,0.2) 100%),
+              linear-gradient(to bottom, rgba(10,10,10,0.15) 0%, rgba(10,10,10,0) 25%, rgba(10,10,10,0) 75%, rgba(10,10,10,0.15) 100%);
   pointer-events: none;
 }
-.jg-hero-content > * { pointer-events: auto; }
-.jg-hero-text { max-width: 640px; }
+
+.jg-hero-bottom {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  font-family: 'Space Grotesk', sans-serif;
+  border: 1px solid rgba(223,185,45,0.25);
+  background: rgba(10,10,10,0.45);
+  backdrop-filter: blur(10px);
+  padding: 16px 28px;
+  border-radius: 6px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 1s ease .35s, transform 1s ease .35s;
+}
+.jg-hero-bottom.jg-in { opacity: 1; transform: translateY(0); }
+.jg-hero-bottom .jg-hud-title { font-size: 11px; letter-spacing: 0.25em; color: #DFB92D; margin-right: 8px; }
+.jg-hero-bottom ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 24px; font-size: 13px; }
+.jg-hero-bottom li { display: flex; align-items: center; gap: 10px; color: rgba(244,241,234,0.85); }
+
 .jg-headline {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(56px, 9vw, 132px);
+  font-size: clamp(44px, 7vw, 96px);
   line-height: 0.95; font-weight: 500;
   letter-spacing: -0.03em; margin: 0;
   display: flex; flex-direction: column;
@@ -314,13 +367,13 @@ const css = `
 @keyframes jg-blink { 50% { opacity: 0; } }
 
 .jg-hero-sub {
-  margin: 28px 0 36px; max-width: 520px;
+  margin: 22px 0 28px; max-width: 520px;
   font-size: 16px; line-height: 1.6; color: rgba(244,241,234,0.7);
   opacity: 0; transform: translateY(12px); transition: opacity .8s ease, transform .8s ease;
 }
 .jg-pill {
   display: inline-flex; align-items: center; gap: 10px;
-  padding: 16px 32px; border-radius: 999px;
+  padding: 14px 30px; border-radius: 999px;
   background: #DFB92D; color: #0a0a0a;
   font-weight: 600; font-size: 14px; letter-spacing: 0.04em;
   opacity: 0; transform: translateY(12px); transition: opacity .8s ease .15s, transform .8s ease .15s, background .2s;
