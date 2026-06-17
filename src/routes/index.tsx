@@ -4,13 +4,13 @@ import { useEffect, useRef, useState } from "react";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "JavaGoat — Deconstruct Sound" },
+      { title: "Sonix — Deconstruct Sound" },
       {
         name: "description",
         content:
-          "JavaGoat premium headphones. Bespoke acoustics, absolute silence, limitless battery. Pre-order the future of sound.",
+          "Sonix premium headphones. Bespoke acoustics, absolute silence, limitless battery. Pre-order the future of sound.",
       },
-      { property: "og:title", content: "JavaGoat — Deconstruct Sound" },
+      { property: "og:title", content: "Sonix — Deconstruct Sound" },
       {
         property: "og:description",
         content: "Premium headphones engineered for spatial audio, lossless playback, and active cancellation.",
@@ -78,7 +78,7 @@ function Landing() {
 
       {/* NAV */}
       <nav className="jg-nav">
-        <div className="jg-logo">JavaGoat</div>
+        <div className="jg-logo">Sonix</div>
         <div className="jg-nav-links">
           <a href="#architecture">Architecture</a>
           <a href="#acoustics">Acoustics</a>
@@ -240,7 +240,7 @@ function Landing() {
 
       {/* FOOTER */}
       <footer id="support" className="jg-footer">
-        <div>© 2026 JavaGoat Audio Labs</div>
+        <div>© 2026 Sonix Audio Labs</div>
         <div className="jg-footer-links">
           <a href="#">Support</a>
           <a href="#">Press</a>
@@ -271,7 +271,8 @@ const css = `
 }
 .jg-logo {
   font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700; letter-spacing: 0.02em; font-size: 20px;
+  font-weight: 700; letter-spacing: 0.14em; font-size: 22px;
+  text-transform: uppercase;
 }
 .jg-nav-links { display: flex; gap: 36px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
 .jg-nav-links a { opacity: 0.75; transition: opacity .2s; }
@@ -279,22 +280,24 @@ const css = `
 .jg-nav-cta { color: #DFB92D !important; opacity: 1 !important; }
 
 /* HERO */
-.jg-hero { position: relative; height: 100vh; min-height: 720px; overflow: hidden; }
-.jg-hero-media { position: absolute; inset: 0; }
-.jg-hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .8s ease, transform 1.2s ease; }
+.jg-hero { position: relative; height: 100vh; min-height: 720px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.jg-hero-media { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 48px; }
+.jg-hero-video { position: relative; width: 100%; max-width: 1000px; aspect-ratio: 16/9; height: auto; object-fit: cover; border-radius: 12px; transition: opacity .8s ease, transform 1.2s ease; }
 .jg-hero-video-a { opacity: 1; }
-.jg-hero-video-b { opacity: 0; transform: scale(1.08); }
-.jg-hero:hover .jg-hero-video-a { transform: scale(1.04); }
-.jg-hero-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(10,10,10,0) 30%, rgba(10,10,10,0.85) 100%), linear-gradient(to bottom, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0) 30%, rgba(10,10,10,0.9) 100%); }
+.jg-hero-video-b { opacity: 0; transform: scale(1.04); }
+.jg-hero:hover .jg-hero-video-a { transform: scale(1.02); }
+.jg-hero-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.85) 70%), linear-gradient(to bottom, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0) 40%, rgba(10,10,10,0.9) 100%); }
 
 .jg-hero-content {
   position: relative; z-index: 2;
-  height: 100%;
+  width: 100%;
   display: grid; grid-template-columns: 1fr auto;
   align-items: end; gap: 32px;
   padding: 0 48px 80px;
   max-width: 1500px; margin: 0 auto;
+  pointer-events: none;
 }
+.jg-hero-content > * { pointer-events: auto; }
 .jg-hero-text { max-width: 640px; }
 .jg-headline {
   font-family: 'Space Grotesk', sans-serif;
