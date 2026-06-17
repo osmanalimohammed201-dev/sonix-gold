@@ -93,6 +93,27 @@ function Landing() {
         onMouseEnter={onHeroEnter}
         onMouseLeave={onHeroLeave}
       >
+        <div className="jg-hero-top">
+          <h1 className="jg-headline">
+            <span className="jg-headline-line">{linePart1 || "\u00A0"}</span>
+            <span className="jg-headline-line jg-gold">
+              {linePart2 || ""}
+              <span className="jg-cursor" aria-hidden>|</span>
+            </span>
+          </h1>
+          <p className={`jg-hero-sub ${typingDone ? "jg-in" : ""}`}>
+            An obsession with detail. Hand-machined acoustic chambers, magnetic
+            planar drivers, and a titanium frame engineered for a lifetime of
+            listening.
+          </p>
+          <a
+            href="#preorder"
+            className={`jg-pill ${typingDone ? "jg-in" : ""}`}
+          >
+            Reserve Yours →
+          </a>
+        </div>
+
         <div className="jg-hero-media">
           <video
             ref={heroA}
@@ -114,37 +135,14 @@ function Landing() {
           <div className="jg-hero-vignette" />
         </div>
 
-        <div className="jg-hero-content">
-          <div className="jg-hero-text">
-            <h1 className="jg-headline">
-              <span className="jg-headline-line">{linePart1 || "\u00A0"}</span>
-              <span className="jg-headline-line jg-gold">
-                {linePart2 || ""}
-                <span className="jg-cursor" aria-hidden>|</span>
-              </span>
-            </h1>
-            <p className={`jg-hero-sub ${typingDone ? "jg-in" : ""}`}>
-              An obsession with detail. Hand-machined acoustic chambers, magnetic
-              planar drivers, and a titanium frame engineered for a lifetime of
-              listening.
-            </p>
-            <a
-              href="#preorder"
-              className={`jg-pill ${typingDone ? "jg-in" : ""}`}
-            >
-              Reserve Yours →
-            </a>
-          </div>
-
-          <aside className={`jg-hud ${typingDone ? "jg-in" : ""}`}>
-            <div className="jg-hud-title">SYSTEM · ACTIVE</div>
-            <ul>
-              <li><span className="jg-dot" /> Spatial Audio</li>
-              <li><span className="jg-dot" /> Lossless Playback</li>
-              <li><span className="jg-dot" /> Active Cancellation</li>
-            </ul>
-          </aside>
-        </div>
+        <aside className={`jg-hero-bottom ${typingDone ? "jg-in" : ""}`}>
+          <div className="jg-hud-title">SYSTEM · ACTIVE</div>
+          <ul>
+            <li><span className="jg-dot" /> Spatial Audio</li>
+            <li><span className="jg-dot" /> Lossless Playback</li>
+            <li><span className="jg-dot" /> Active Cancellation</li>
+          </ul>
+        </aside>
       </section>
 
       {/* MARQUEE */}
@@ -280,28 +278,81 @@ const css = `
 .jg-nav-cta { color: #DFB92D !important; opacity: 1 !important; }
 
 /* HERO */
-.jg-hero { position: relative; height: 100vh; min-height: 720px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-.jg-hero-media { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 64px 48px; }
-.jg-hero-video { position: relative; width: 100%; max-width: 880px; aspect-ratio: 16/9; height: auto; object-fit: cover; border-radius: 12px; transition: opacity .8s ease, transform 1.2s ease; box-shadow: 0 0 60px rgba(223,185,45,0.12); }
+.jg-hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 100px 48px 40px;
+}
+.jg-hero-top {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.jg-hero-media {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  aspect-ratio: 16/9;
+  margin: 32px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.jg-hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+  filter: brightness(1.25) contrast(1.15) saturate(1.08);
+  transition: opacity .8s ease, transform 1.2s ease;
+}
 .jg-hero-video-a { opacity: 1; }
 .jg-hero-video-b { opacity: 0; transform: scale(1.04); }
 .jg-hero:hover .jg-hero-video-a { transform: scale(1.02); }
-.jg-hero-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(10,10,10,0) 0%, rgba(10,10,10,0) 50%, rgba(10,10,10,0.75) 100%), linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0) 30%, rgba(10,10,10,0.7) 100%); pointer-events: none; }
-
-.jg-hero-content {
-  position: relative; z-index: 2;
-  width: 100%;
-  display: grid; grid-template-columns: 1fr auto;
-  align-items: end; gap: 32px;
-  padding: 0 48px 80px;
-  max-width: 1500px; margin: 0 auto;
+.jg-hero-vignette {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: radial-gradient(ellipse at center, rgba(10,10,10,0) 0%, rgba(10,10,10,0) 55%, rgba(10,10,10,0.2) 100%),
+              linear-gradient(to bottom, rgba(10,10,10,0.15) 0%, rgba(10,10,10,0) 25%, rgba(10,10,10,0) 75%, rgba(10,10,10,0.15) 100%);
   pointer-events: none;
 }
-.jg-hero-content > * { pointer-events: auto; }
-.jg-hero-text { max-width: 640px; }
+
+.jg-hero-bottom {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  font-family: 'Space Grotesk', sans-serif;
+  border: 1px solid rgba(223,185,45,0.25);
+  background: rgba(10,10,10,0.45);
+  backdrop-filter: blur(10px);
+  padding: 16px 28px;
+  border-radius: 6px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 1s ease .35s, transform 1s ease .35s;
+}
+.jg-hero-bottom.jg-in { opacity: 1; transform: translateY(0); }
+.jg-hero-bottom .jg-hud-title { font-size: 11px; letter-spacing: 0.25em; color: #DFB92D; margin-right: 8px; }
+.jg-hero-bottom ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 24px; font-size: 13px; }
+.jg-hero-bottom li { display: flex; align-items: center; gap: 10px; color: rgba(244,241,234,0.85); }
+
 .jg-headline {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(56px, 9vw, 132px);
+  font-size: clamp(44px, 7vw, 96px);
   line-height: 0.95; font-weight: 500;
   letter-spacing: -0.03em; margin: 0;
   display: flex; flex-direction: column;
@@ -316,41 +367,19 @@ const css = `
 @keyframes jg-blink { 50% { opacity: 0; } }
 
 .jg-hero-sub {
-  margin: 28px 0 36px; max-width: 520px;
+  margin: 22px 0 28px; max-width: 520px;
   font-size: 16px; line-height: 1.6; color: rgba(244,241,234,0.7);
   opacity: 0; transform: translateY(12px); transition: opacity .8s ease, transform .8s ease;
 }
 .jg-pill {
   display: inline-flex; align-items: center; gap: 10px;
-  padding: 16px 32px; border-radius: 999px;
+  padding: 14px 30px; border-radius: 999px;
   background: #DFB92D; color: #0a0a0a;
   font-weight: 600; font-size: 14px; letter-spacing: 0.04em;
   opacity: 0; transform: translateY(12px); transition: opacity .8s ease .15s, transform .8s ease .15s, background .2s;
 }
 .jg-pill:hover { background: #f0cc3f; }
 .jg-in { opacity: 1 !important; transform: translateY(0) !important; }
-
-/* HUD */
-.jg-hud {
-  border: 1px solid rgba(223,185,45,0.3);
-  background: rgba(10,10,10,0.55);
-  backdrop-filter: blur(10px);
-  padding: 22px 26px; min-width: 260px;
-  font-family: 'Space Grotesk', sans-serif;
-  opacity: 0; transform: translateY(12px) translateX(8px);
-  transition: opacity 1s ease .35s, transform 1s ease .35s;
-}
-.jg-hud-title { font-size: 11px; letter-spacing: 0.25em; color: #DFB92D; margin-bottom: 16px; }
-.jg-hud ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; font-size: 14px; }
-.jg-hud li { display: flex; align-items: center; gap: 12px; color: rgba(244,241,234,0.85); }
-.jg-dot { width: 8px; height: 8px; border-radius: 50%; background: #DFB92D; box-shadow: 0 0 0 0 rgba(223,185,45,0.7); animation: jg-pulse 1.8s infinite; }
-.jg-hud li:nth-child(2) .jg-dot { animation-delay: .3s; }
-.jg-hud li:nth-child(3) .jg-dot { animation-delay: .6s; }
-@keyframes jg-pulse {
-  0% { box-shadow: 0 0 0 0 rgba(223,185,45,0.6); }
-  70% { box-shadow: 0 0 0 12px rgba(223,185,45,0); }
-  100% { box-shadow: 0 0 0 0 rgba(223,185,45,0); }
-}
 
 /* MARQUEE */
 .jg-marquee {
