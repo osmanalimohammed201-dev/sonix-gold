@@ -281,8 +281,8 @@ const css = `
 
 /* HERO */
 .jg-hero { position: relative; height: 100vh; min-height: 720px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-.jg-hero-media { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 48px; }
-.jg-hero-video { position: relative; width: 100%; max-width: 1000px; aspect-ratio: 16/9; height: auto; object-fit: cover; border-radius: 12px; transition: opacity .8s ease, transform 1.2s ease; }
+.jg-hero-media { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 80px 48px; }
+.jg-hero-video { position: relative; width: 100%; max-width: 720px; aspect-ratio: 16/9; height: auto; object-fit: cover; border-radius: 12px; transition: opacity .8s ease, transform 1.2s ease; }
 .jg-hero-video-a { opacity: 1; }
 .jg-hero-video-b { opacity: 0; transform: scale(1.04); }
 .jg-hero:hover .jg-hero-video-a { transform: scale(1.02); }
