@@ -46,19 +46,6 @@ function Landing() {
     return () => clearInterval(id);
   }, []);
 
-  // Hero video swap on hover
-  const onHeroEnter = () => {
-    if (heroA.current) heroA.current.style.opacity = "0";
-    if (heroB.current) {
-      heroB.current.style.opacity = "1";
-      heroB.current.playbackRate = 1.1;
-      heroB.current.play().catch(() => {});
-    }
-  };
-  const onHeroLeave = () => {
-    if (heroA.current) heroA.current.style.opacity = "1";
-    if (heroB.current) heroB.current.style.opacity = "0";
-  };
 
   // Specs circle reveal
   const onSpecsEnter = () => specsVideo.current?.play().catch(() => {});
