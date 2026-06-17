@@ -149,6 +149,54 @@ function Landing() {
 
       {/* FEATURES */}
       <section id="architecture" className="jg-section">
+        {/* GALLERY */}
+      </section>
+
+      <section className="jg-section jg-gallery-section">
+        <div className="jg-eyebrow">Gallery</div>
+        <h2 className="jg-h2">Crafted to be seen.</h2>
+        <div className="jg-gallery-grid">
+          {[
+            {
+              img: "https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=1600&q=85",
+              t: "Titanium Frame",
+              d: "Aerospace-grade alloy, hand-brushed for a satin finish that ages with grace.",
+              tag: "Material",
+            },
+            {
+              img: "https://images.unsplash.com/photo-1545127398-14699f92334b?auto=format&fit=crop&w=1600&q=85",
+              t: "Acoustic Chambers",
+              d: "CNC-milled aluminium cups tuned over four hundred listening sessions.",
+              tag: "Engineering",
+            },
+            {
+              img: "https://images.unsplash.com/photo-1599669454699-248893623440?auto=format&fit=crop&w=1600&q=85",
+              t: "Studio Pedigree",
+              d: "Reference-grade response, mastered with engineers from Abbey Road.",
+              tag: "Sound",
+            },
+            {
+              img: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=1600&q=85",
+              t: "Endless Comfort",
+              d: "Memory foam wrapped in vegetable-tanned leather. 248 grams, all day.",
+              tag: "Comfort",
+            },
+          ].map((c) => (
+            <article className="jg-gcard" key={c.t}>
+              <div className="jg-gcard-media">
+                <img src={c.img} alt={c.t} loading="lazy" />
+              </div>
+              <div className="jg-gcard-body">
+                <span className="jg-gcard-tag">{c.tag}</span>
+                <h3>{c.t}</h3>
+                <p>{c.d}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="jg-section">
         <div className="jg-eyebrow">Architecture</div>
         <h2 className="jg-h2">Three pillars. One obsession.</h2>
         <div className="jg-grid">
