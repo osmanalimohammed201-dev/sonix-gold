@@ -93,6 +93,27 @@ function Landing() {
         onMouseEnter={onHeroEnter}
         onMouseLeave={onHeroLeave}
       >
+        <div className="jg-hero-top">
+          <h1 className="jg-headline">
+            <span className="jg-headline-line">{linePart1 || "\u00A0"}</span>
+            <span className="jg-headline-line jg-gold">
+              {linePart2 || ""}
+              <span className="jg-cursor" aria-hidden>|</span>
+            </span>
+          </h1>
+          <p className={`jg-hero-sub ${typingDone ? "jg-in" : ""}`}>
+            An obsession with detail. Hand-machined acoustic chambers, magnetic
+            planar drivers, and a titanium frame engineered for a lifetime of
+            listening.
+          </p>
+          <a
+            href="#preorder"
+            className={`jg-pill ${typingDone ? "jg-in" : ""}`}
+          >
+            Reserve Yours →
+          </a>
+        </div>
+
         <div className="jg-hero-media">
           <video
             ref={heroA}
@@ -114,37 +135,14 @@ function Landing() {
           <div className="jg-hero-vignette" />
         </div>
 
-        <div className="jg-hero-content">
-          <div className="jg-hero-text">
-            <h1 className="jg-headline">
-              <span className="jg-headline-line">{linePart1 || "\u00A0"}</span>
-              <span className="jg-headline-line jg-gold">
-                {linePart2 || ""}
-                <span className="jg-cursor" aria-hidden>|</span>
-              </span>
-            </h1>
-            <p className={`jg-hero-sub ${typingDone ? "jg-in" : ""}`}>
-              An obsession with detail. Hand-machined acoustic chambers, magnetic
-              planar drivers, and a titanium frame engineered for a lifetime of
-              listening.
-            </p>
-            <a
-              href="#preorder"
-              className={`jg-pill ${typingDone ? "jg-in" : ""}`}
-            >
-              Reserve Yours →
-            </a>
-          </div>
-
-          <aside className={`jg-hud ${typingDone ? "jg-in" : ""}`}>
-            <div className="jg-hud-title">SYSTEM · ACTIVE</div>
-            <ul>
-              <li><span className="jg-dot" /> Spatial Audio</li>
-              <li><span className="jg-dot" /> Lossless Playback</li>
-              <li><span className="jg-dot" /> Active Cancellation</li>
-            </ul>
-          </aside>
-        </div>
+        <aside className={`jg-hero-bottom ${typingDone ? "jg-in" : ""}`}>
+          <div className="jg-hud-title">SYSTEM · ACTIVE</div>
+          <ul>
+            <li><span className="jg-dot" /> Spatial Audio</li>
+            <li><span className="jg-dot" /> Lossless Playback</li>
+            <li><span className="jg-dot" /> Active Cancellation</li>
+          </ul>
+        </aside>
       </section>
 
       {/* MARQUEE */}
