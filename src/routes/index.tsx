@@ -214,6 +214,17 @@ function Landing() {
           >
             {theme === "dark" ? "☀" : "☾"}
           </button>
+          <button
+            className="jg-nav-icon"
+            aria-label="Wishlist"
+            onClick={() => { setWishlist(!wishlist); pushToast(wishlist ? "Removed from wishlist" : "Added to wishlist"); }}
+          >
+            <span className={wishlist ? "jg-heart jg-heart-on" : "jg-heart"}>♥</span>
+          </button>
+          <button className="jg-nav-icon jg-cart-btn" aria-label="Cart">
+            <span>⛶</span>
+            {cart > 0 && <span className="jg-cart-count">{cart}</span>}
+          </button>
           <a href="#buy" className="jg-nav-cta">Buy Now</a>
         </div>
       </nav>
