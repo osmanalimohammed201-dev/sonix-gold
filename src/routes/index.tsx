@@ -71,6 +71,27 @@ function Landing() {
   const [activeHotspot, setActiveHotspot] = useState<string | null>(null);
   const dragRef = useRef<{ x: number; r: number } | null>(null);
 
+  // E-commerce state
+  const [cart, setCart] = useState(0);
+  const [wishlist, setWishlist] = useState(false);
+  const [qty, setQty] = useState(1);
+  const [toast, setToast] = useState<string | null>(null);
+  const pushToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast((t) => (t === msg ? null : t)), 2200);
+  };
+  const PRICE = 799;
+  const ORIGINAL = 999;
+  const DISCOUNT = Math.round((1 - PRICE / ORIGINAL) * 100);
+  const deliveryDate = (() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 4);
+    const e = new Date();
+    e.setDate(e.getDate() + 7);
+    const fmt = (x: Date) => x.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    return `${fmt(d)} – ${fmt(e)}`;
+  })();
+
   // Loader
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 1200);
