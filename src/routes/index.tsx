@@ -636,19 +636,130 @@ function Landing() {
 
       {/* BUY NOW */}
       <section id="buy" className="jg-section jg-buy" data-reveal>
-        <div className="jg-buy-left">
-          <div className="jg-eyebrow">Pre-order</div>
-          <h2 className="jg-h2">Sonix Pro</h2>
-          <p className="jg-buy-price">$799 <span>· Free shipping · Ships Spring 2027</span></p>
-          <ul className="jg-buy-list">
-            <li>✓ 30-day return</li>
-            <li>✓ 2-year warranty</li>
-            <li>✓ Free engraving</li>
-          </ul>
-          <a href="#" className="jg-pill jg-pill-lg">Buy Now →</a>
-        </div>
         <div className="jg-buy-right">
-          <img src={HERO_IMG} alt="Sonix Pro" />
+          <img
+            src={HERO_IMG}
+            alt="Sonix Pro"
+            style={{ filter: color === "Onyx" ? "none" : `hue-rotate(${color === "Midnight" ? 200 : color === "Champagne" ? 40 : 0}deg) saturate(${color === "Titanium" ? 0.25 : 1})` }}
+          />
+          <span className="jg-discount-badge">−{DISCOUNT}%</span>
+        </div>
+        <div className="jg-buy-left">
+          <div className="jg-eyebrow">Sonix Pro · {color}</div>
+          <h2 className="jg-h2" style={{ marginBottom: 16 }}>Own the silence.</h2>
+
+          <div className="jg-rate">
+            <span className="jg-stars">★★★★★</span>
+            <span className="jg-rate-num">4.9</span>
+            <a href="#reviews" className="jg-rate-link">2,418 reviews</a>
+          </div>
+
+          <div className="jg-price-row">
+            <span className="jg-price-now">${PRICE}</span>
+            <span className="jg-price-was">${ORIGINAL}</span>
+            <span className="jg-price-save">Save ${ORIGINAL - PRICE}</span>
+          </div>
+
+          <div className="jg-stock">
+            <span className="jg-stock-dot" />
+            <span><b>In stock</b> · Ready to ship</span>
+          </div>
+
+          <div className="jg-buy-section">
+            <div className="jg-buy-label">Color · <b>{color}</b></div>
+            <div className="jg-swatches">
+              {Object.entries(colors).map(([name, c]) => (
+                <button
+                  key={name}
+                  aria-label={name}
+                  className={`jg-swatch ${color === name ? "jg-swatch-on" : ""}`}
+                  style={{ background: c }}
+                  onClick={() => setColor(name)}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="jg-buy-section">
+            <div className="jg-buy-label">Quantity</div>
+            <div className="jg-qty">
+              <button onClick={() => setQty(Math.max(1, qty - 1))} aria-label="Decrease">−</button>
+              <span>{qty}</span>
+              <button onClick={() => setQty(qty + 1)} aria-label="Increase">+</button>
+            </div>
+          </div>
+
+          <div className="jg-delivery">
+            <div><span className="jg-eyebrow-sm">Delivery</span><b>Free · {deliveryDate}</b></div>
+            <div><span className="jg-eyebrow-sm">Returns</span><b>30-day free returns</b></div>
+          </div>
+
+          <div className="jg-buy-ctas">
+            <button
+              className="jg-pill jg-pill-lg"
+              onClick={() => { setCart(cart + qty); pushToast(`Order placed · ${qty} × Sonix Pro`); }}
+            >Buy Now · ${PRICE * qty}</button>
+            <button
+              className="jg-pill-ghost jg-pill-lg"
+              onClick={() => { setCart(cart + qty); pushToast(`Added ${qty} to cart`); }}
+            >Add to Cart</button>
+            <button
+              className={`jg-wish-btn ${wishlist ? "jg-wish-on" : ""}`}
+              onClick={() => { setWishlist(!wishlist); pushToast(wishlist ? "Removed from wishlist" : "Added to wishlist"); }}
+              aria-label="Wishlist"
+            >♥</button>
+          </div>
+
+          <div className="jg-trust">
+            <div className="jg-trust-item">🔒 Secure checkout</div>
+            <div className="jg-trust-item">🚚 Free shipping over $99</div>
+            <div className="jg-trust-item">↺ 30-day returns</div>
+            <div className="jg-trust-item">🛡 2-year warranty</div>
+          </div>
+
+          <div className="jg-pay-row">
+            <span>We accept</span>
+            <div className="jg-pay-icons">
+              <span>VISA</span><span>MC</span><span>AMEX</span><span>PayPal</span><span> Pay</span><span>G Pay</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* RELATED PRODUCTS */}
+      <section className="jg-section" data-reveal>
+        <div className="jg-eyebrow">You may also like</div>
+        <h2 className="jg-h2">Related products.</h2>
+        <div className="jg-related-grid">
+          {[
+            { t: "Sonix Air", d: "Wireless earbuds · ANC", img: "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?auto=format&fit=crop&w=900&q=85", p: 249, was: 299, r: 4.8 },
+            { t: "Sonix Studio", d: "Reference monitors", img: "https://images.unsplash.com/photo-1558537348-c0f8e733989d?auto=format&fit=crop&w=900&q=85", p: 1299, was: 1499, r: 4.9 },
+            { t: "Sonix Stand", d: "Aluminium dock", img: "https://images.unsplash.com/photo-1612444530582-fc66183b16f7?auto=format&fit=crop&w=900&q=85", p: 89, was: 119, r: 4.7 },
+            { t: "Sonix Cable+", d: "Balanced 4.4mm", img: "https://images.unsplash.com/photo-1631176093617-63490a3d785a?auto=format&fit=crop&w=900&q=85", p: 89, was: 109, r: 4.8 },
+          ].map((r) => (
+            <article className="jg-rcard" key={r.t}>
+              <div className="jg-rcard-media">
+                <img src={r.img} alt={r.t} loading="lazy" />
+                <span className="jg-rcard-badge">−{Math.round((1 - r.p / r.was) * 100)}%</span>
+              </div>
+              <div className="jg-rcard-body">
+                <h3>{r.t}</h3>
+                <p>{r.d}</p>
+                <div className="jg-rcard-rate"><span className="jg-stars">★★★★★</span><span>{r.r}</span></div>
+                <div className="jg-rcard-foot">
+                  <div>
+                    <span className="jg-price-now-sm">${r.p}</span>
+                    <span className="jg-price-was-sm">${r.was}</span>
+                  </div>
+                  <button
+                    className="jg-rcard-add"
+                    onClick={() => { setCart(cart + 1); pushToast(`Added ${r.t} to cart`); }}
+                    aria-label={`Add ${r.t} to cart`}
+                  >＋ Add</button>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
