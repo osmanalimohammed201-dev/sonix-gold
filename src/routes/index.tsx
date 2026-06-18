@@ -835,6 +835,11 @@ function Landing() {
         className={`jg-top ${showTop ? "jg-top-show" : ""}`}
         aria-label="Back to top"
       >↑</a>
+
+      {/* TOAST */}
+      <div className={`jg-toast ${toast ? "jg-toast-show" : ""}`} role="status" aria-live="polite">
+        {toast}
+      </div>
     </div>
   );
 }
