@@ -234,14 +234,13 @@ function FullCanvas({
 }
 
 function Rig({ autoRotate }: { autoRotate: boolean }) {
-  const { camera, gl } = useThree();
+  const { camera } = useThree();
   useEffect(() => {
     camera.position.set(0, 0.3, 3.6);
     camera.lookAt(0, 0, 0);
   }, [camera]);
   return (
     <OrbitControls
-      args={[camera, gl.domElement]}
       enablePan={false}
       enableDamping
       dampingFactor={0.08}
