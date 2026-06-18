@@ -71,6 +71,27 @@ function Landing() {
   const [activeHotspot, setActiveHotspot] = useState<string | null>(null);
   const dragRef = useRef<{ x: number; r: number } | null>(null);
 
+  // E-commerce state
+  const [cart, setCart] = useState(0);
+  const [wishlist, setWishlist] = useState(false);
+  const [qty, setQty] = useState(1);
+  const [toast, setToast] = useState<string | null>(null);
+  const pushToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast((t) => (t === msg ? null : t)), 2200);
+  };
+  const PRICE = 799;
+  const ORIGINAL = 999;
+  const DISCOUNT = Math.round((1 - PRICE / ORIGINAL) * 100);
+  const deliveryDate = (() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 4);
+    const e = new Date();
+    e.setDate(e.getDate() + 7);
+    const fmt = (x: Date) => x.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    return `${fmt(d)} – ${fmt(e)}`;
+  })();
+
   // Loader
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 1200);
@@ -192,6 +213,17 @@ function Landing() {
             aria-label="Toggle theme"
           >
             {theme === "dark" ? "☀" : "☾"}
+          </button>
+          <button
+            className="jg-nav-icon"
+            aria-label="Wishlist"
+            onClick={() => { setWishlist(!wishlist); pushToast(wishlist ? "Removed from wishlist" : "Added to wishlist"); }}
+          >
+            <span className={wishlist ? "jg-heart jg-heart-on" : "jg-heart"}>♥</span>
+          </button>
+          <button className="jg-nav-icon jg-cart-btn" aria-label="Cart">
+            <span>⛶</span>
+            {cart > 0 && <span className="jg-cart-count">{cart}</span>}
           </button>
           <a href="#buy" className="jg-nav-cta">Buy Now</a>
         </div>
@@ -604,19 +636,130 @@ function Landing() {
 
       {/* BUY NOW */}
       <section id="buy" className="jg-section jg-buy" data-reveal>
-        <div className="jg-buy-left">
-          <div className="jg-eyebrow">Pre-order</div>
-          <h2 className="jg-h2">Sonix Pro</h2>
-          <p className="jg-buy-price">$799 <span>· Free shipping · Ships Spring 2027</span></p>
-          <ul className="jg-buy-list">
-            <li>✓ 30-day return</li>
-            <li>✓ 2-year warranty</li>
-            <li>✓ Free engraving</li>
-          </ul>
-          <a href="#" className="jg-pill jg-pill-lg">Buy Now →</a>
-        </div>
         <div className="jg-buy-right">
-          <img src={HERO_IMG} alt="Sonix Pro" />
+          <img
+            src={HERO_IMG}
+            alt="Sonix Pro"
+            style={{ filter: color === "Onyx" ? "none" : `hue-rotate(${color === "Midnight" ? 200 : color === "Champagne" ? 40 : 0}deg) saturate(${color === "Titanium" ? 0.25 : 1})` }}
+          />
+          <span className="jg-discount-badge">−{DISCOUNT}%</span>
+        </div>
+        <div className="jg-buy-left">
+          <div className="jg-eyebrow">Sonix Pro · {color}</div>
+          <h2 className="jg-h2" style={{ marginBottom: 16 }}>Own the silence.</h2>
+
+          <div className="jg-rate">
+            <span className="jg-stars">★★★★★</span>
+            <span className="jg-rate-num">4.9</span>
+            <a href="#reviews" className="jg-rate-link">2,418 reviews</a>
+          </div>
+
+          <div className="jg-price-row">
+            <span className="jg-price-now">${PRICE}</span>
+            <span className="jg-price-was">${ORIGINAL}</span>
+            <span className="jg-price-save">Save ${ORIGINAL - PRICE}</span>
+          </div>
+
+          <div className="jg-stock">
+            <span className="jg-stock-dot" />
+            <span><b>In stock</b> · Ready to ship</span>
+          </div>
+
+          <div className="jg-buy-section">
+            <div className="jg-buy-label">Color · <b>{color}</b></div>
+            <div className="jg-swatches">
+              {Object.entries(colors).map(([name, c]) => (
+                <button
+                  key={name}
+                  aria-label={name}
+                  className={`jg-swatch ${color === name ? "jg-swatch-on" : ""}`}
+                  style={{ background: c }}
+                  onClick={() => setColor(name)}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="jg-buy-section">
+            <div className="jg-buy-label">Quantity</div>
+            <div className="jg-qty">
+              <button onClick={() => setQty(Math.max(1, qty - 1))} aria-label="Decrease">−</button>
+              <span>{qty}</span>
+              <button onClick={() => setQty(qty + 1)} aria-label="Increase">+</button>
+            </div>
+          </div>
+
+          <div className="jg-delivery">
+            <div><span className="jg-eyebrow-sm">Delivery</span><b>Free · {deliveryDate}</b></div>
+            <div><span className="jg-eyebrow-sm">Returns</span><b>30-day free returns</b></div>
+          </div>
+
+          <div className="jg-buy-ctas">
+            <button
+              className="jg-pill jg-pill-lg"
+              onClick={() => { setCart(cart + qty); pushToast(`Order placed · ${qty} × Sonix Pro`); }}
+            >Buy Now · ${PRICE * qty}</button>
+            <button
+              className="jg-pill-ghost jg-pill-lg"
+              onClick={() => { setCart(cart + qty); pushToast(`Added ${qty} to cart`); }}
+            >Add to Cart</button>
+            <button
+              className={`jg-wish-btn ${wishlist ? "jg-wish-on" : ""}`}
+              onClick={() => { setWishlist(!wishlist); pushToast(wishlist ? "Removed from wishlist" : "Added to wishlist"); }}
+              aria-label="Wishlist"
+            >♥</button>
+          </div>
+
+          <div className="jg-trust">
+            <div className="jg-trust-item">🔒 Secure checkout</div>
+            <div className="jg-trust-item">🚚 Free shipping over $99</div>
+            <div className="jg-trust-item">↺ 30-day returns</div>
+            <div className="jg-trust-item">🛡 2-year warranty</div>
+          </div>
+
+          <div className="jg-pay-row">
+            <span>We accept</span>
+            <div className="jg-pay-icons">
+              <span>VISA</span><span>MC</span><span>AMEX</span><span>PayPal</span><span> Pay</span><span>G Pay</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* RELATED PRODUCTS */}
+      <section className="jg-section" data-reveal>
+        <div className="jg-eyebrow">You may also like</div>
+        <h2 className="jg-h2">Related products.</h2>
+        <div className="jg-related-grid">
+          {[
+            { t: "Sonix Air", d: "Wireless earbuds · ANC", img: "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?auto=format&fit=crop&w=900&q=85", p: 249, was: 299, r: 4.8 },
+            { t: "Sonix Studio", d: "Reference monitors", img: "https://images.unsplash.com/photo-1558537348-c0f8e733989d?auto=format&fit=crop&w=900&q=85", p: 1299, was: 1499, r: 4.9 },
+            { t: "Sonix Stand", d: "Aluminium dock", img: "https://images.unsplash.com/photo-1612444530582-fc66183b16f7?auto=format&fit=crop&w=900&q=85", p: 89, was: 119, r: 4.7 },
+            { t: "Sonix Cable+", d: "Balanced 4.4mm", img: "https://images.unsplash.com/photo-1631176093617-63490a3d785a?auto=format&fit=crop&w=900&q=85", p: 89, was: 109, r: 4.8 },
+          ].map((r) => (
+            <article className="jg-rcard" key={r.t}>
+              <div className="jg-rcard-media">
+                <img src={r.img} alt={r.t} loading="lazy" />
+                <span className="jg-rcard-badge">−{Math.round((1 - r.p / r.was) * 100)}%</span>
+              </div>
+              <div className="jg-rcard-body">
+                <h3>{r.t}</h3>
+                <p>{r.d}</p>
+                <div className="jg-rcard-rate"><span className="jg-stars">★★★★★</span><span>{r.r}</span></div>
+                <div className="jg-rcard-foot">
+                  <div>
+                    <span className="jg-price-now-sm">${r.p}</span>
+                    <span className="jg-price-was-sm">${r.was}</span>
+                  </div>
+                  <button
+                    className="jg-rcard-add"
+                    onClick={() => { setCart(cart + 1); pushToast(`Added ${r.t} to cart`); }}
+                    aria-label={`Add ${r.t} to cart`}
+                  >＋ Add</button>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -692,6 +835,11 @@ function Landing() {
         className={`jg-top ${showTop ? "jg-top-show" : ""}`}
         aria-label="Back to top"
       >↑</a>
+
+      {/* TOAST */}
+      <div className={`jg-toast ${toast ? "jg-toast-show" : ""}`} role="status" aria-live="polite">
+        {toast}
+      </div>
     </div>
   );
 }
@@ -954,5 +1102,80 @@ html { scroll-behavior: smooth; }
 }
 @media (max-width: 520px) {
   .jg-footer-cols { grid-template-columns: 1fr 1fr; }
+}
+
+/* NAV ICONS / CART / WISHLIST */
+.jg-nav-icon { background: none; border: 1px solid var(--line); color: var(--fg); width: 34px; height: 34px; border-radius: 50%; cursor: pointer; font-size: 14px; transition: border-color .2s, color .2s; position: relative; display: inline-flex; align-items: center; justify-content: center; }
+.jg-nav-icon:hover { border-color: var(--gold); color: var(--gold); }
+.jg-heart { font-size: 14px; transition: color .2s, transform .2s; }
+.jg-heart-on { color: var(--gold); transform: scale(1.15); }
+.jg-cart-count { position: absolute; top: -4px; right: -4px; background: var(--gold); color: #0a0a0a; font-size: 10px; font-weight: 700; min-width: 16px; height: 16px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; font-family: 'Space Grotesk', sans-serif; }
+
+/* BUY ENHANCEMENTS */
+.jg-buy-right { position: relative; }
+.jg-discount-badge { position: absolute; top: 18px; left: 18px; background: var(--gold); color: #0a0a0a; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 0.06em; padding: 8px 14px; border-radius: 999px; box-shadow: 0 6px 20px rgba(0,0,0,.25); }
+.jg-rate { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; font-size: 14px; }
+.jg-rate-num { font-weight: 600; }
+.jg-rate-link { color: var(--muted); text-decoration: underline; }
+.jg-rate-link:hover { color: var(--gold); }
+.jg-price-row { display: flex; align-items: baseline; gap: 14px; margin: 0 0 14px; flex-wrap: wrap; }
+.jg-price-now { font-family: 'Space Grotesk', sans-serif; font-size: 40px; font-weight: 500; letter-spacing: -0.02em; }
+.jg-price-was { font-size: 18px; color: var(--muted); text-decoration: line-through; }
+.jg-price-save { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); border: 1px solid color-mix(in srgb, var(--gold) 50%, transparent); padding: 4px 10px; border-radius: 999px; }
+.jg-stock { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+.jg-stock-dot { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; box-shadow: 0 0 12px #3ddc84; animation: jg-pulse 2s ease-in-out infinite; }
+.jg-stock b { color: var(--fg); }
+.jg-buy-section { margin: 0 0 22px; }
+.jg-buy-label { font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.jg-buy-label b { color: var(--fg); margin-left: 4px; }
+.jg-qty { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.jg-qty button { background: none; border: none; color: var(--fg); width: 40px; height: 40px; font-size: 18px; cursor: pointer; transition: color .2s, background .2s; }
+.jg-qty button:hover { color: var(--gold); }
+.jg-qty span { padding: 0 18px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; min-width: 30px; text-align: center; }
+.jg-delivery { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); margin-bottom: 28px; }
+.jg-delivery b { display: block; font-size: 14px; margin-top: 4px; font-weight: 500; }
+.jg-eyebrow-sm { font-family: 'Space Grotesk', sans-serif; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
+.jg-buy-ctas { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 26px; }
+.jg-buy-ctas .jg-pill-ghost { padding: 18px 28px; font-size: 15px; }
+.jg-wish-btn { width: 56px; height: 56px; border-radius: 50%; border: 1px solid var(--line); background: none; color: var(--fg); font-size: 20px; cursor: pointer; transition: all .2s; }
+.jg-wish-btn:hover { border-color: var(--gold); color: var(--gold); }
+.jg-wish-on { background: var(--gold); color: #0a0a0a; border-color: var(--gold); }
+.jg-trust { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 18px; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 18px; }
+.jg-trust-item { font-size: 13px; color: var(--muted); }
+.jg-pay-row { display: flex; align-items: center; gap: 12px; font-size: 12px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+.jg-pay-icons { display: flex; gap: 6px; flex-wrap: wrap; }
+.jg-pay-icons span { padding: 4px 8px; border: 1px solid var(--line); border-radius: 4px; font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; }
+
+/* RELATED PRODUCTS */
+.jg-related-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.jg-rcard { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--card); transition: transform .4s, border-color .4s, box-shadow .4s; }
+.jg-rcard:hover { transform: translateY(-6px); border-color: color-mix(in srgb, var(--gold) 50%, transparent); box-shadow: 0 20px 50px -20px rgba(0,0,0,.5); }
+.jg-rcard-media { position: relative; aspect-ratio: 1/1; overflow: hidden; background: var(--bg); }
+.jg-rcard-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s; }
+.jg-rcard:hover .jg-rcard-media img { transform: scale(1.05); }
+.jg-rcard-badge { position: absolute; top: 12px; left: 12px; background: var(--gold); color: #0a0a0a; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 11px; padding: 4px 10px; border-radius: 999px; }
+.jg-rcard-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.jg-rcard-body h3 { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 500; margin: 0; }
+.jg-rcard-body p { color: var(--muted); font-size: 13px; margin: 0; }
+.jg-rcard-rate { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+.jg-rcard-rate .jg-stars { letter-spacing: 2px; font-size: 12px; margin: 0; }
+.jg-rcard-foot { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 10px; }
+.jg-price-now-sm { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; }
+.jg-price-was-sm { font-size: 12px; color: var(--muted); text-decoration: line-through; margin-left: 6px; }
+.jg-rcard-add { background: var(--fg); color: var(--bg); border: none; padding: 8px 14px; border-radius: 999px; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer; transition: background .2s; }
+.jg-rcard-add:hover { background: var(--gold); color: #0a0a0a; }
+
+/* TOAST */
+.jg-toast { position: fixed; bottom: 32px; left: 50%; transform: translate(-50%, 30px); background: var(--fg); color: var(--bg); padding: 14px 24px; border-radius: 999px; font-size: 14px; font-weight: 500; z-index: 90; opacity: 0; pointer-events: none; transition: opacity .3s, transform .3s; box-shadow: 0 20px 50px rgba(0,0,0,.35); }
+.jg-toast-show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (max-width: 900px) {
+  .jg-related-grid { grid-template-columns: repeat(2, 1fr); }
+  .jg-buy { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .jg-related-grid { grid-template-columns: 1fr; }
+  .jg-trust { grid-template-columns: 1fr; }
+  .jg-delivery { grid-template-columns: 1fr; }
 }
 `;
