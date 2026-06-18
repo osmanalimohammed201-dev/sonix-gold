@@ -968,7 +968,7 @@ html { scroll-behavior: smooth; }
 .jg-viewer-stage { aspect-ratio: 4/3; background: radial-gradient(circle at center, color-mix(in srgb, var(--gold) 12%, transparent), transparent 70%), var(--card); border: 1px solid var(--line); border-radius: 24px; position: relative; overflow: hidden; cursor: grab; perspective: 1200px; touch-action: none; }
 .jg-viewer-stage:active { cursor: grabbing; }
 .jg-viewer-img { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; transition: transform .15s linear; transform-style: preserve-3d; }
-.jg-viewer-img img { max-width: 70%; max-height: 80%; object-fit: contain; user-select: none; pointer-events: none; transition: filter .5s ease; filter: drop-shadow(0 30px 60px rgba(0,0,0,.5)); }
+.jg-viewer-img img { max-width: 90%; max-height: 92%; object-fit: contain; user-select: none; pointer-events: none; transition: filter .5s ease; filter: drop-shadow(0 40px 60px rgba(0,0,0,.55)); }
 .jg-ex { position: absolute; width: 60px; height: 60px; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--gold) 40%, transparent); opacity: 0; transition: all .8s cubic-bezier(.2,.7,.2,1); pointer-events: none; }
 .jg-exploded .jg-ex { opacity: 1; }
 .jg-exploded .jg-ex-1 { transform: translate(-180px, -80px); }
