@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import headphones3d from "@/assets/headphones-3d.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -386,7 +387,7 @@ function Landing() {
               style={{ transform: `rotateY(${rotation}deg)` }}
             >
               <img
-                src={HERO_IMG}
+                src={headphones3d}
                 alt="Sonix headphones"
                 draggable={false}
                 style={{ filter: color === "Onyx" ? "none" : `hue-rotate(${color === "Midnight" ? 200 : color === "Champagne" ? 40 : 0}deg) saturate(${color === "Titanium" ? 0.2 : 1})` }}
